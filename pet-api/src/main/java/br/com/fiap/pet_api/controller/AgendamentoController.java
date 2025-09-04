@@ -38,7 +38,7 @@ public class AgendamentoController {
         service.delete(id);
     }
 
-    // ✅ GET por ID (necessário para evitar 405 em /agendamentos/{id})
+    // GET por ID (necessário para evitar 405 em /agendamentos/{id})
     @GetMapping("/{id}")
     public AgendamentoDTO findById(@PathVariable Long id) {
         return service.findById(id);
