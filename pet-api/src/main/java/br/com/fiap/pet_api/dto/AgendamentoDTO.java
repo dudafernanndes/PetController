@@ -1,20 +1,33 @@
 package br.com.fiap.pet_api.dto;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import br.com.fiap.pet_api.validation.HorarioComercial;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record AgendamentoDTO(
         Long id,
-        @NotNull Long idPet,
-        @NotBlank @Size(max = 40) String servico,
-        @Size(max = 60) String profissional,
-        @Size(max = 60) String local,
-        @NotNull @FutureOrPresent LocalDate data,
-        @NotNull LocalTime horario,
-        @Size(max = 255) String observacoes
+
+        @NotNull(message="{NotNull}")
+        Long idPet,
+
+        @NotBlank(message="{NotBlank}") @Size(max=40, message="{Size}")
+        @Pattern(regexp="(?i)Banho|Tosa|Vacina|Consulta|Exame|Outros", message="{Pattern}")
+        String servico,
+
+        @Size(max=60, message="{Size}")
+        String profissional,
+
+        @Size(max=60, message="{Size}")
+        String local,
+
+        @NotNull(message="{NotNull}") @FutureOrPresent(message="{FutureOrPresent}")
+        LocalDate data,
+
+        @NotNull(message="{NotNull}") @HorarioComercial
+        LocalTime horario,
+
+        @Size(max=255, message="{Size}")
+        String observacoes
 ) { }
