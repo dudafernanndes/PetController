@@ -60,4 +60,14 @@ public class GlobalExceptionHandler {
         pd.setProperty("timestamp", OffsetDateTime.now());
         return pd;
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ProblemDetail handleConflict(IllegalStateException ex, HttpServletRequest req) {
+        var pd = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        pd.setTitle("Conflito de agenda");
+        pd.setDetail(ex.getMessage());
+        pd.setProperty("path", req.getRequestURI());
+        pd.setProperty("timestamp", java.time.OffsetDateTime.now());
+        return pd;
+    }
 }

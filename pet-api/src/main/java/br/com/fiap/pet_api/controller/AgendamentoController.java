@@ -31,11 +31,11 @@ public class AgendamentoController {
         return service.create(dto);
     }
 
-    // CREATE em lote
+    // CREATE em lote (transacional no service)
     @PostMapping("/batch")
     @ResponseStatus(HttpStatus.CREATED)
     public List<AgendamentoDTO> createBatch(@RequestBody @Valid List<AgendamentoDTO> dtos) {
-        return dtos.stream().map(service::create).toList();
+        return service.createBatch(dtos);
     }
 
     // UPDATE

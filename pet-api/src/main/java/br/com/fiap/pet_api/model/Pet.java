@@ -3,6 +3,9 @@ package br.com.fiap.pet_api.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "TB_PET")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -37,4 +40,10 @@ public class Pet {
 
     @Column(length=255)
     private String observacoes;
+
+    // RELACIONAMENTO inverso (opcional para navegação)
+    @OneToMany(mappedBy = "pet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<Agendamento> agendamentos = new ArrayList<>();
 }
